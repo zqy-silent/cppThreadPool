@@ -273,5 +273,3 @@ During this project, I practiced
 This project was redesigned after studying a Linux C thread pool implementation.
 
 The purpose is not to directly translate C code into C++, but to understand the underlying concurrency model and redesign it using Modern C++ practices.
-
-本?目并非?考 C++ 教程??，而是在?? Linux C ?程池源?后，?零重新????构，???代 C++ ?格的?程池。?目重?放在?程同步机制（mutex、condition_variable）、阻塞?列??以及 RAII 思想的??。
