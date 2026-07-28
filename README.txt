@@ -12,17 +12,19 @@ The goal of this project is to understand the design philosophy behind thread po
 
 ---
 
-## Features
+Modern C++ ThreadPool
 
-- ? Modern C++17 implementation
-- ? Thread-safe Blocking Queue
-- ? Producer-Consumer Model
-- ? RAII-based mutex management
-- ? Condition Variable synchronization
-- ? Graceful shutdown
-- ? Task encapsulation
-- ? Linux / POSIX thread support
+ä¸€ä¸ªåŸºäºŽ C++17 å®žçŽ°çš„çº¿ç¨‹æ± ã€‚
 
+Features
+
+Multiple worker threads
+Thread-safe blocking queue
+mutex + condition_variable synchronization
+Generic task submission
+std::future asynchronous result
+std::packaged_task support
+Graceful shutdown
 ---
 
 ## Architecture
@@ -32,23 +34,23 @@ The goal of this project is to understand the design philosophy behind thread po
         +-------------------------+
         | vector<std::thread>     |
         +-------------------------+
-                    ¢x
-                    ¡¿
+                    â”‚
+                    â–¼
                Worker Threads
-                    ¢x
-                    ¡¿
+                    â”‚
+                    â–¼
           +---------------------+
           |   BlockingQueue     |
           +---------------------+
-          ¢x      mutex          ¢x
-          ¢x condition_variable  ¢x
-          ¡¿                     ¡¿
+          â”‚      mutex          â”‚
+          â”‚ condition_variable  â”‚
+          â–¼                     â–¼
               Task Queue
-                    ¢x
-                    ¡¿
+                    â”‚
+                    â–¼
                  Task
-                    ¢x
-                    ¡¿
+                    â”‚
+                    â–¼
       std::function<void()>
 ```
 
@@ -217,22 +219,22 @@ for(int i = 0; i < 10; i++)
 
 ```
 ThreadPool
-¢x
-¢u¢w¢w include
-¢x   ¢u¢w¢w Task.h
-¢x   ¢u¢w¢w BlockingQueue.h
-¢x   ¢|¢w¢w ThreadPool.h
-¢x
-¢u¢w¢w src
-¢x   ¢u¢w¢w Task.cpp
-¢x   ¢u¢w¢w BlockingQueue.cpp
-¢x   ¢|¢w¢w ThreadPool.cpp
-¢x
-¢u¢w¢w test
-¢x   ¢|¢w¢w main.cpp
-¢x
-¢u¢w¢w CMakeLists.txt
-¢|¢w¢w README.md
+â”‚
+â”œâ”€â”€ include
+â”‚   â”œâ”€â”€ Task.h
+â”‚   â”œâ”€â”€ BlockingQueue.h
+â”‚   â””â”€â”€ ThreadPool.h
+â”‚
+â”œâ”€â”€ src
+â”‚   â”œâ”€â”€ Task.cpp
+â”‚   â”œâ”€â”€ BlockingQueue.cpp
+â”‚   â””â”€â”€ ThreadPool.cpp
+â”‚
+â”œâ”€â”€ test
+â”‚   â””â”€â”€ main.cpp
+â”‚
+â”œâ”€â”€ CMakeLists.txt
+â””â”€â”€ README.md
 ```
 
 ---
@@ -272,4 +274,4 @@ This project was redesigned after studying a Linux C thread pool implementation.
 
 The purpose is not to directly translate C code into C++, but to understand the underlying concurrency model and redesign it using Modern C++ practices.
 
-¥»?¥Ø¦}«D?¦Ò C++ ±Ðµ{??¡A¦Ó¬O¦b?? Linux C ?µ{¦À·½?¦Z¡A?¹s­«·s????ÌÛ¡A???¥N C++ ?®æªº?µ{¦À¡C?¥Ø­«?©ñ¦b?µ{¦P¨BÉó¨î¡]mutex¡Bcondition_variable¡^¡Bªý¶ë?¦C??¥H¤Î RAII «ä·Qªº??¡C
+æœ¬?ç›®å¹¶éž?è€ƒ C++ æ•™ç¨‹??ï¼Œè€Œæ˜¯åœ¨?? Linux C ?ç¨‹æ± æº?åŽï¼Œ?é›¶é‡æ–°????æž„ï¼Œ???ä»£ C++ ?æ ¼çš„?ç¨‹æ± ã€‚?ç›®é‡?æ”¾åœ¨?ç¨‹åŒæ­¥æœºåˆ¶ï¼ˆmutexã€condition_variableï¼‰ã€é˜»å¡ž?åˆ—??ä»¥åŠ RAII æ€æƒ³çš„??ã€‚
